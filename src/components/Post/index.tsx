@@ -1,4 +1,6 @@
 import { ReactElement } from "react";
+
+import { Avatar } from "../Avatar";
 import { Comment } from "../Comment";
 
 import styles from "./Post.module.css";
@@ -13,7 +15,7 @@ export const Post = ({ author, content }: PostProps): ReactElement => {
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <img src="https://github.com/amanda-santos.png" alt="Amanda Santos" />
+          <Avatar src="https://github.com/amanda-santos.png" hasBorder />
           <div className={styles.authorInfo}>
             <strong>Amanda Santos</strong>
             <span>Frontend Developer</span>
