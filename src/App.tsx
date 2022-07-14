@@ -14,6 +14,8 @@ export const App = (): ReactElement => {
         <Sidebar />
         <main>
           <Post author="Amanda Santos" content="content" />
+          <Post author="Amanda Santos" content="content" />
+          <Post author="Amanda Santos" content="content" />
         </main>
       </div>
     </div>
