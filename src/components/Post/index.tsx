@@ -1,4 +1,5 @@
 import { ReactElement } from "react";
+import { Comment } from "../Comment";
 
 import styles from "./Post.module.css";
 
@@ -36,6 +37,12 @@ export const Post = ({ author, content }: PostProps): ReactElement => {
           <button type="submit">Post</button>
         </footer>
       </form>
+
+      <div className={styles.commentList}>
+        <Comment />
+        <Comment />
+        <Comment />
+      </div>
     </article>
   );
 };
