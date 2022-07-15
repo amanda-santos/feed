@@ -15,9 +15,13 @@
 }
 
 .content p {
-  font-weight: bold;
   color: var(--gray-500);
   text-decoration: none;
+  margin-bottom: 1.5rem;
+}
+
+.content a {
+  color: var(--green-500);
 }
 
 .content a:hover {

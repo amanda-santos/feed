@@ -2,6 +2,9 @@ import { ReactElement } from "react";
 
 import { Header, Post, Sidebar } from "./components";
 
+import { posts } from "./data";
+import { Post as PostType } from "./types";
+
 import "./global.css";
 import styles from "./App.module.css";
 
@@ -13,9 +16,14 @@ export const App = (): ReactElement => {
       <div className={styles.wrapper}>
         <Sidebar />
         <main>
-          <Post author="Amanda Santos" content="content" />
-          <Post author="Amanda Santos" content="content" />
-          <Post author="Amanda Santos" content="content" />
+          {posts.map(({ id, author, content, publishedAt }: PostType) => (
+            <Post
+              key={id}
+              author={author}
+              content={content}
+              publishedAt={publishedAt}
+            />
+          ))}
         </main>
       </div>
     </div>

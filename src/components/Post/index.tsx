@@ -1,34 +1,54 @@
 import { ReactElement } from "react";
+import { format, formatDistanceToNow } from "date-fns";
 
 import { Avatar } from "../Avatar";
 import { Comment } from "../Comment";
+import { Post as PostType } from "../../types";
 
 import styles from "./Post.module.css";
 
-type PostProps = {
-  author: string;
-  content: string;
-};
+type PostProps = Omit<PostType, "id">;
 
-export const Post = ({ author, content }: PostProps): ReactElement => {
+export const Post = ({
+  author,
+  content,
+  publishedAt,
+}: PostProps): ReactElement => {
+  const formattedPublishedAt = format(publishedAt, "MMM dd, HH:mm a");
+  const relativeToNowPublishedAt = formatDistanceToNow(publishedAt, {
+    addSuffix: true,
+  });
+
   return (
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <Avatar src="https://github.com/amanda-santos.png" hasBorder />
+          <Avatar src={author.avatarUrl} hasBorder />
           <div className={styles.authorInfo}>
-            <strong>Amanda Santos</strong>
-            <span>Frontend Developer</span>
+            <strong>{author.name}</strong>
+            <span>{author.role}</span>
           </div>
         </div>
 
-        <time title="July 14th 8:13pm" dateTime="2022-07-14 08:13:12">
+        <time title={formattedPublishedAt} dateTime={publishedAt.toISOString()}>
           {" "}
-          1 hour ago
+          {relativeToNowPublishedAt}
         </time>
       </header>
 
-      <div className={styles.content}>{content}</div>
+      <div className={styles.content}>
+        {content.map(({ type, content }) => {
+          return type === "paragraph" ? (
+            <p>{content}</p>
+          ) : (
+            <p>
+              <a href={content} target="_blank">
+                {content}
+              </a>
+            </p>
+          );
+        })}
+      </div>
 
       <form className={styles.commentForm}>
         <strong>Leave a comment</strong>
