@@ -2,20 +2,25 @@ import { ReactElement, useState } from "react";
 import { ThumbsUp, Trash } from "phosphor-react";
 
 import { Avatar } from "../Avatar";
+import { Comment as CommentType } from "../../types";
+import { formatDate, formatDateToNow } from "../../utils";
+
 import styles from "./Comment.module.css";
 
 type CommentProps = {
-  id: number;
-  content: string;
+  comment: CommentType;
   onDeleteComment: (commentId: number) => void;
 };
 
 export const Comment = ({
-  id,
-  content,
+  comment,
   onDeleteComment,
 }: CommentProps): ReactElement => {
+  const { id, content, publishedAt } = comment;
   const [likeCount, setLikeCount] = useState(0);
+
+  const formattedPublishedAt = formatDate(publishedAt);
+  const relativeToNowPublishedAt = formatDateToNow(publishedAt);
 
   const handleAddLike = (): void => {
     setLikeCount((prevLikeCount) => prevLikeCount + 1);
@@ -34,8 +39,11 @@ export const Comment = ({
           <header>
             <div className={styles.authorAndTime}>
               <strong>Diego Fernandes</strong>
-              <time title="11 de Maio às 08:13h" dateTime="2022-05-11 08:13:00">
-                Cerca de 1h atrás
+              <time
+                title={formattedPublishedAt}
+                dateTime={publishedAt.toISOString()}
+              >
+                {relativeToNowPublishedAt}
               </time>
             </div>
 

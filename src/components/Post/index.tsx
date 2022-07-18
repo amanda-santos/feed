@@ -5,33 +5,30 @@ import {
   ReactElement,
   useState,
 } from "react";
-import { format, formatDistanceToNow } from "date-fns";
 
 import { Avatar } from "../Avatar";
 import { Comment } from "../Comment";
-import { Post as PostType } from "../../types";
+import { Post as PostType, Comment as CommentType } from "../../types";
+import { formatDate, formatDateToNow } from "../../utils";
 
 import styles from "./Post.module.css";
 
-type PostProps = Omit<PostType, "id">;
-
-type CommentType = {
-  id: number;
-  content: string;
+type PostProps = {
+  post: PostType;
 };
 
-export const Post = ({
-  author,
-  content,
-  publishedAt,
-}: PostProps): ReactElement => {
-  const [comments, setComments] = useState<CommentType[]>([]);
+export const Post = ({ post }: PostProps): ReactElement => {
+  const {
+    author,
+    content,
+    publishedAt,
+    comments: originalComments = [],
+  } = post;
+  const [comments, setComments] = useState<CommentType[]>(originalComments);
   const [newCommentText, setNewCommentText] = useState("");
 
-  const formattedPublishedAt = format(publishedAt, "MMM dd, HH:mm a");
-  const relativeToNowPublishedAt = formatDistanceToNow(publishedAt, {
-    addSuffix: true,
-  });
+  const formattedPublishedAt = formatDate(publishedAt);
+  const relativeToNowPublishedAt = formatDateToNow(publishedAt);
 
   const handleNewCommentChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     event.target.setCustomValidity("");
@@ -46,7 +43,10 @@ export const Post = ({
 
   const handleCreateNewComment = (event: FormEvent<HTMLFormElement>): void => {
     event?.preventDefault();
-    setComments([...comments, { id: Math.random(), content: newCommentText }]);
+    setComments([
+      ...comments,
+      { id: Math.random(), content: newCommentText, publishedAt: new Date() },
+    ]);
     setNewCommentText("");
   };
 
@@ -106,11 +106,10 @@ export const Post = ({
       </form>
 
       <div className={comments.length > 0 ? styles.commentList : ""}>
-        {comments.map(({ id, content }) => (
+        {comments.map((comment) => (
           <Comment
-            key={id}
-            id={id}
-            content={content}
+            key={comment.id}
+            comment={comment}
             onDeleteComment={deleteComment}
           />
         ))}

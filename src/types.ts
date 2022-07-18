@@ -12,4 +12,11 @@ export type Post = {
   };
   content: Content[];
   publishedAt: Date;
+  comments?: Comment[];
+};
+
+export type Comment = {
+  id: number;
+  content: string;
+  publishedAt: Date;
 };
