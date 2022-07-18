@@ -41,6 +41,10 @@ export const Post = ({
     setNewCommentText("");
   };
 
+  const deleteComment = (commentId: number): void => {
+    setComments(comments.filter(({ id }) => id !== commentId));
+  };
+
   return (
     <article className={styles.post}>
       <header>
@@ -89,8 +93,13 @@ export const Post = ({
       </form>
 
       <div className={styles.commentList}>
-        {comments.map((comment) => (
-          <Comment key={comment.id} content={comment.content} />
+        {comments.map(({ id, content }) => (
+          <Comment
+            key={id}
+            id={id}
+            content={content}
+            onDeleteComment={deleteComment}
+          />
         ))}
       </div>
     </article>
