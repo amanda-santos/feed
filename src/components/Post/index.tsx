@@ -1,4 +1,10 @@
-import { ChangeEvent, FormEvent, ReactElement, useState } from "react";
+import {
+  ChangeEvent,
+  FormEvent,
+  InvalidEvent,
+  ReactElement,
+  useState,
+} from "react";
 import { format, formatDistanceToNow } from "date-fns";
 
 import { Avatar } from "../Avatar";
@@ -9,21 +15,17 @@ import styles from "./Post.module.css";
 
 type PostProps = Omit<PostType, "id">;
 
+type CommentType = {
+  id: number;
+  content: string;
+};
+
 export const Post = ({
   author,
   content,
   publishedAt,
 }: PostProps): ReactElement => {
-  const [comments, setComments] = useState([
-    {
-      id: 1,
-      content: "Oi, eu sou o primeiro comentário",
-    },
-    {
-      id: 2,
-      content: "Oi, eu sou o segundo comentário",
-    },
-  ]);
+  const [comments, setComments] = useState<CommentType[]>([]);
   const [newCommentText, setNewCommentText] = useState("");
 
   const formattedPublishedAt = format(publishedAt, "MMM dd, HH:mm a");
@@ -32,7 +34,14 @@ export const Post = ({
   });
 
   const handleNewCommentChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    event.target.setCustomValidity("");
     setNewCommentText(event.target.value);
+  };
+
+  const handleNewCommentInvalid = (
+    event: InvalidEvent<HTMLTextAreaElement>
+  ) => {
+    event.target.setCustomValidity("You must write a comment.");
   };
 
   const handleCreateNewComment = (event: FormEvent<HTMLFormElement>): void => {
@@ -82,17 +91,21 @@ export const Post = ({
         <strong>Leave a comment</strong>
 
         <textarea
+          required
           placeholder="Leave a comment..."
           value={newCommentText}
           onChange={handleNewCommentChange}
+          onInvalid={handleNewCommentInvalid}
         ></textarea>
 
         <footer>
-          <button type="submit">Post</button>
+          <button type="submit" disabled={!newCommentText}>
+            Post
+          </button>
         </footer>
       </form>
 
-      <div className={styles.commentList}>
+      <div className={comments.length > 0 ? styles.commentList : ""}>
         {comments.map(({ id, content }) => (
           <Comment
             key={id}
