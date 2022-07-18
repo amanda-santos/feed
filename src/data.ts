@@ -27,9 +27,9 @@ export const posts: Post[] = [
     publishedAt: new Date("2022-07-13 12:00:00"),
   },
   {
-    id: 1,
+    id: 2,
     author: {
-      avatarUrl: "https://i.pravatar.cc/150",
+      avatarUrl: "https://i.pravatar.cc/150?img=1",
       name: "Charlie Robbin",
       role: "Designer",
     },
@@ -52,9 +52,9 @@ export const posts: Post[] = [
     publishedAt: new Date("2022-07-13 12:00:00"),
   },
   {
-    id: 1,
+    id: 3,
     author: {
-      avatarUrl: "https://i.pravatar.cc/150",
+      avatarUrl: "https://i.pravatar.cc/150?img=5",
       name: "Lu Chen",
       role: "Frontend Developer",
     },

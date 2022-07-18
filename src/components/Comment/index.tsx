@@ -4,7 +4,11 @@ import { ThumbsUp, Trash } from "phosphor-react";
 import styles from "./Comment.module.css";
 import { Avatar } from "../Avatar";
 
-export const Comment = (): ReactElement => {
+type CommentProps = {
+  content: string;
+};
+
+export const Comment = ({ content }: CommentProps): ReactElement => {
   return (
     <div className={styles.comment}>
       <Avatar src="https://github.com/amanda-santos.png" />
@@ -19,18 +23,18 @@ export const Comment = (): ReactElement => {
               </time>
             </div>
 
-            <button title="Deletar comentário">
+            <button title="Delete comment">
               <Trash size={24} />
             </button>
           </header>
 
-          <p>Muito bom Devon, parabéns!! 👏👏</p>
+          <p>{content}</p>
         </div>
 
         <footer>
           <button>
             <ThumbsUp size={20} />
-            Aplaudir <span>20</span>
+            Applaud <span>20</span>
           </button>
         </footer>
       </div>

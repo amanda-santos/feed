@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ChangeEvent, FormEvent, ReactElement, useState } from "react";
 import { format, formatDistanceToNow } from "date-fns";
 
 import { Avatar } from "../Avatar";
@@ -14,10 +14,32 @@ export const Post = ({
   content,
   publishedAt,
 }: PostProps): ReactElement => {
+  const [comments, setComments] = useState([
+    {
+      id: 1,
+      content: "Oi, eu sou o primeiro comentário",
+    },
+    {
+      id: 2,
+      content: "Oi, eu sou o segundo comentário",
+    },
+  ]);
+  const [newCommentText, setNewCommentText] = useState("");
+
   const formattedPublishedAt = format(publishedAt, "MMM dd, HH:mm a");
   const relativeToNowPublishedAt = formatDistanceToNow(publishedAt, {
     addSuffix: true,
   });
+
+  const handleNewCommentChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setNewCommentText(event.target.value);
+  };
+
+  const handleCreateNewComment = (event: FormEvent<HTMLFormElement>): void => {
+    event?.preventDefault();
+    setComments([...comments, { id: Math.random(), content: newCommentText }]);
+    setNewCommentText("");
+  };
 
   return (
     <article className={styles.post}>
@@ -38,22 +60,28 @@ export const Post = ({
 
       <div className={styles.content}>
         {content.map(({ type, content }) => {
-          return type === "paragraph" ? (
-            <p>{content}</p>
-          ) : (
-            <p>
-              <a href={content} target="_blank">
-                {content}
-              </a>
+          return (
+            <p key={content}>
+              {type === "paragraph" ? (
+                content
+              ) : (
+                <a href={content} target="_blank">
+                  {content}
+                </a>
+              )}
             </p>
           );
         })}
       </div>
 
-      <form className={styles.commentForm}>
+      <form className={styles.commentForm} onSubmit={handleCreateNewComment}>
         <strong>Leave a comment</strong>
 
-        <textarea placeholder="Leave a comment..."></textarea>
+        <textarea
+          placeholder="Leave a comment..."
+          value={newCommentText}
+          onChange={handleNewCommentChange}
+        ></textarea>
 
         <footer>
           <button type="submit">Post</button>
@@ -61,9 +89,9 @@ export const Post = ({
       </form>
 
       <div className={styles.commentList}>
-        <Comment />
-        <Comment />
-        <Comment />
+        {comments.map((comment) => (
+          <Comment key={comment.id} content={comment.content} />
+        ))}
       </div>
     </article>
   );
