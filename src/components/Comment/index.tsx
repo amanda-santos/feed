@@ -18,7 +18,7 @@ export const Comment = ({
   const [likeCount, setLikeCount] = useState(0);
 
   const handleAddLike = (): void => {
-    setLikeCount(likeCount + 1);
+    setLikeCount((prevLikeCount) => prevLikeCount + 1);
   };
 
   const handleDeleteComment = (): void => {
@@ -50,7 +50,7 @@ export const Comment = ({
         <footer>
           <button type="button" onClick={handleAddLike}>
             <ThumbsUp size={20} />
-            Applaud <span>{likeCount}</span>
+            Like <span>{likeCount}</span>
           </button>
         </footer>
       </div>
