@@ -14,15 +14,13 @@
   <a href="https://github.com/amanda-santos/feed/issues">
     <img alt="Repository issues" src="https://img.shields.io/github/issues/amanda-santos/feed">
   </a>
-
-  <img alt="GitHub" src="https://img.shields.io/github/license/amanda-santos/feed">
 </p>
 
 <p align="center">
   <a href="#-about-the-project">About the project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-getting-started">Getting started</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-how-to-contribute">How to contribute</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-how-to-contribute">How to contribute</a>&nbsp;&nbsp;&nbsp;
 </p>
 
 ## 📝 About the project
@@ -38,6 +36,8 @@ Technologies used to develop this project:
 - Vite
 - Phosphor React Icons
 - DateFNS
+- HTML
+- CSS Modules
 
 ## ⌨ Getting started
 
@@ -47,6 +47,10 @@ Technologies used to develop this project:
 ## 🖥 Preview
 
 Click <a href="https://feed-amanda-santos.vercel.app/">here</a> to see it live 📺
+
+https://user-images.githubusercontent.com/49074930/179857186-9e135d52-b0b9-46f7-8b9a-ed7bdbe350a8.mp4
+
+https://user-images.githubusercontent.com/49074930/179857191-b826255c-69bc-412a-9ad4-520915cee00a.mp4
 
 ## 🤔 How to contribute
 
