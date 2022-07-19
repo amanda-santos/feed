@@ -45,7 +45,17 @@ export const Post = ({ post }: PostProps): ReactElement => {
     event?.preventDefault();
     setComments([
       ...comments,
-      { id: Math.random(), content: newCommentText, publishedAt: new Date() },
+      {
+        id: Math.random(),
+        content: newCommentText,
+        publishedAt: new Date(),
+        author: {
+          avatarUrl:
+            "https://avatars0.githubusercontent.com/u/17098281?s=460&v=4",
+          name: "John Doe",
+          role: "Frontend Developer",
+        },
+      },
     ]);
     setNewCommentText("");
   };

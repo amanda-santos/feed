@@ -3,13 +3,15 @@ export type Content = {
   content: string;
 };
 
+export type Author = {
+  avatarUrl: string;
+  name: string;
+  role: string;
+};
+
 export type Post = {
   id: number;
-  author: {
-    avatarUrl: string;
-    name: string;
-    role: string;
-  };
+  author: Author;
   content: Content[];
   publishedAt: Date;
   comments?: Comment[];
@@ -17,6 +19,7 @@ export type Post = {
 
 export type Comment = {
   id: number;
+  author: Author;
   content: string;
   publishedAt: Date;
 };

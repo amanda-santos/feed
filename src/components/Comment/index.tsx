@@ -16,7 +16,7 @@ export const Comment = ({
   comment,
   onDeleteComment,
 }: CommentProps): ReactElement => {
-  const { id, content, publishedAt } = comment;
+  const { id, content, publishedAt, author } = comment;
   const [likeCount, setLikeCount] = useState(0);
 
   const formattedPublishedAt = formatDate(publishedAt);
@@ -32,13 +32,13 @@ export const Comment = ({
 
   return (
     <div className={styles.comment}>
-      <Avatar src="https://github.com/amanda-santos.png" />
+      <Avatar src={author.avatarUrl} alt={author.name} />
 
       <div className={styles.commentBox}>
         <div className={styles.commentContent}>
           <header>
             <div className={styles.authorAndTime}>
-              <strong>Diego Fernandes</strong>
+              <strong>{author.name}</strong>
               <time
                 title={formattedPublishedAt}
                 dateTime={publishedAt.toISOString()}
